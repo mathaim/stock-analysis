@@ -106,6 +106,12 @@ To do this we created the following macro:
 
     End Sub
 
+
+## What is this code doing?
+Here we are creating a nested for loop, where we are looping each ticker through all 3,013 rows. We first set **tickerVolume** equal to zero. Then we begin the first for loop setting i equal to zero and **ticker** = *AY*. Then we begin the second for loop, where j (row number) equals 2. We already set **totalVolume** equal to zero, and we are adding the value from the 2nd row and 8th colume to become the new **totalVolume**. This iteration will satisfy the first If Statement 5a because it is the first row of this ticker. Therefore, it pulls the **startingPrice** from the 6th column of this row. This iteration failes the second If Statement 5b because it is not the last row of this ticker. The loop then moves on to the 3rd row, where the new **totalVolume** is calculated and 5a and 5b fail. This continues until we reach the final row of *AY* which is 252. Once j=252, the final **totalVolume** for *AY* is calculated, the If Statement 5b is satisfied, and **endingPrice** is pulled. 
+
+Then we continue this process through all the rows until the last row 3,013, except with all rows beyond 252, the If Statements in 5a, 5b, and 5c all fail and no variable values are changed becuase the ticker is no longer *AY*. Once row 3,1013 is reached, we output the variable values as shown in Step 6. Then, we go back to Step 4 and repeat the entire process for i=1.    
+
 Here are the results:
 
 ![2017](resources/2017_data.png)
@@ -114,24 +120,89 @@ Here are the results:
 
 #Interpret results
 
-#However, it took a long time.
 
-Here is how long it took VBA to run our code:
+
+It is great that we got those results, but that took a long time. It wasn't super efficient to make VBA go through all 3,013 rows 11 times. Here is how long it took VBA to run our code:
 
 ![slow 2017 time](resources/2017_moduletime.PNG)
 
 ![slow 2018 time](resources/2018_moduletime.PNG)
 
-We can be more efficient!
+We can be more efficient! We will now refractor our code to try to make it run faster.  When refactoring code, we aren’t adding new functionality; we just want to make the code more efficient—by taking fewer steps, using less memory, or improving the logic of the code to make it easier for future users to read. Here is the new macro:
 
 ## Refractored Analysis of All Stocks
 
+
+    Sub AllStocksAnalysisRefactored()
+
+        'Copy + paste steps through 3c from previous AllStocksAnalysis()
+    
+         '1a) Create a ticker Index
+          Dim tickerIndex As Long
+          tickerIndex = 0
+
+          '1b) Create three output arrays
+           Dim tickerVolumes(11) As Long
+           Dim tickerStartingPrices(11) As Single
+           Dim tickerEndingPrices(11) As Single
+    
+          '2a) Create a for loop to initialize the tickerVolumes to zero.
+           For x = 0 To 11
+                tickerVolumes(x) = 0
+           Next x
+
+           '2b) Loop over all the rows in the spreadsheet.
+           Worksheets(yearValue).Activate
+    
+           For i = 2 To RowCount
+    
+                '3a) Increase volume for current ticker
+                 tickerVolumes(tickerIndex) = tickerVolumes(tickerIndex) + Cells(i, 8).Value
+        
+                '3b) Check if the current row is the first row with the selected tickerIndex.
+                 If Cells(i, 1).Value = tickers(tickerIndex) And Cells(i - 1, 1).Value <> tickers(tickerIndex) Then
+                        tickerStartingPrices(tickerIndex) = Cells(i, 6).Value       
+                 End If
+         
+                 '3c) check if the current row is the last row with the selected tick
+                  If Cells(i, 1).Value = tickers(tickerIndex) And Cells(i + 1, 1).Value <> tickers(tickerIndex) Then
+                        tickerEndingPrices(tickerIndex) = Cells(i, 6).Value
+                
+                        '3d) Increase the tickerIndex.
+                         tickerIndex = tickerIndex + 1
+                   End If
+        
+           Next i
+   
+          '4) Loop through your arrays to output the Ticker, Total Daily Volume, and Return.
+           For i = 0 To 11
+                Worksheets("All Stocks Analysis").Activate
+                Cells(4 + i, 1).Value = tickers(i)
+                Cells(4 + i, 2).Value = tickerVolumes(i)
+                Cells(4 + i, 3).Value = tickerEndingPrices(i) / tickerStartingPrices(i) - 1
+            Next i
+    
+        'Copy + paste formatting code from AllStocksAnalysis()
+ 
+    endTime = Timer
+    MsgBox "This (refractored) code ran in " & (endTime - startTime) & " seconds for the year " & (yearValue)
+
+    End Sub
+
+## What is this code doing? Let's go through it step by step to understand how it is different from AllStocksAnalysis(). 
+First we need to create a **tickerIndex** that will serve as an index for a number of different variables. We want to set it equal to 0 becuase we want to start with ticker(0)= *AY*, as defined in AllStocksAnalysis() Step 2. When we initialize the variables **totalVolumes, tickerStartingPrices,** and **tickerEndingPrices**, we need to make them as arrays that hold 11 different values that correspond with each of the tickers. Then in Step 2a, we must create a for loop so that for each ticker, **totalVolumes**=0 initially.
+
+For Step 3a, **tickerIndex** is still equal to zero as definied in Step 1. In Step 2a, we defined **totalVolumes** regardless of ticker as equal to zero. The second part of the expression pulls the value from the 2nd row and 8th column, which is the Volume for ticker AY on January 3rd, 2020. We set that as the new **totalVolumes** for ticker *AY*. We now need to find **tickerStartingPrices**. We do this the same way we did in AllStocksAnalysis(). This was only the second row, so the If statement in 3c will fail. Then we move to the next row, and back to 3a. **totalVolumes** is now a nonzero number, and we add the value from row 3 column 8 to get a new **totalVolumes**. The next two Is Statements fail. This process repeats until we reach the last row (252) of ticker *AY*. Then, the If statement in 3c is satisfied and **tickerEndingPrice** is calculated for *AY*. Also, in Step 3d, we are changing **tickerIndex** from 0 to 1. Then we carry on to the next row (253), but now the ticker is set to *CSIQ*. The process repeats for every ticker.
+
+We didn't need to include the output in the original for loop, becuase the data is stored in the arrays we created. We now just need to call them and say where we want them printed, which we do in Step 4.
+
+The result is much faster run times!
 
 ![fast 2017 time](resources/VBA_Challenge_2017.PNG)
 
 ![fast 2018 time](resources/VBA_Challenge_2018.PNG)
 
-Results: Using images and examples of your code, compare the stock performance between 2017 and 2018, as well as the execution times of the original script and the refactored script.
+
 
 
 Summary: In a summary statement, address the following questions.
