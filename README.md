@@ -106,6 +106,9 @@ To do this we created the following macro:
 
     End Sub
 
+Here are the results:
+![2017](resources/2017_data.png)
+![2018](resources/2018_data.png)
 
 ### Returns
 
