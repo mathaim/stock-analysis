@@ -107,14 +107,29 @@ To do this we created the following macro:
     End Sub
 
 Here are the results:
+
 ![2017](resources/2017_data.png)
+
 ![2018](resources/2018_data.png)
 
-### Returns
+#Interpret results
+
+#However, it took a long time.
+
+Here is how long it took VBA to run our code:
+
+![slow 2017 time](resources/2017_moduletime.png)
+
+![slow 2018 time](resources/2018_moduletime.png)
+
+We can be more efficient!
 
 ## Refractored Analysis of All Stocks
 
 
+![fast 2017 time](resources/VBA_Challenge_2017.png)
+
+![fast 2018 time](resources/VBA_Challenge_2018.png)
 
 Results: Using images and examples of your code, compare the stock performance between 2017 and 2018, as well as the execution times of the original script and the refactored script.
 
