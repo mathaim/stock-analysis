@@ -118,11 +118,9 @@ Here are the results:
 
 ![2018](resources/2018_data.png)
 
-#Interpret results
+While in 2017 DAQO had the best returns (+199.4%), in 2018 it had the worst returns (-62.6%). Let's consider the returns number in context. In 2017, DAQO was only traded 35,796,200 times; it was the least traded stock of the set of 11 by a lot. Perhaps this means that the stock was not accurately priced. In 2018, it was traded more often, a total of 107,873,900 times. While compared to 2017 it was traded more, it was still far below the 2018 median of **totalVolume** which was 179,594,450. This suggests that the price of DAQO still may be innacurate and returns may not reflect the true value of the stock. Regardless, this is not a good indicator of the strength of DAQO relative to these other renewable energy stocks.
 
-
-
-It is great that we got those results, but that took a long time. It wasn't super efficient to make VBA go through all 3,013 rows 11 times. Here is how long it took VBA to run our code:
+It is great that we got those results, but that took a long time. It wasn't super efficient to make VBA go through all 3,013 rows 11 times. Here is how long it took VBA to run the macro:
 
 ![slow 2017 time](resources/2017_moduletime.PNG)
 
@@ -204,7 +202,7 @@ The result is much faster run times!
 
 
 ## Summary: 
-The advantage of refractoring code is you make the process more efficient. You can hedge minimize the risk of the program lagging or crashing, which is always important when doing data analysis. 
+The advantage of refractoring code is you make the process more efficient. We want to transform messy or complicated code into clean code is code that is easy to read,
+understand, and maintain. You can hedge minimize the risk of the program lagging or crashing, which is always important when doing data analysis. Crashing isn't much of an issue with our data right now, but if we wanted to analyze thousands of stocks, we could do so easily with our refractored code.
 
-What are the advantages or disadvantages of refactoring code?
-How do these pros and cons apply to refactoring the original VBA script?
+#need cons!!
