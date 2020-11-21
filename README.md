@@ -113,14 +113,13 @@ Here we are creating a nested for loop, where we are looping each ticker through
 
 Then we continue this process through all the rows until the last row 3,013, except with all rows beyond 252, the If Statements in 5a, 5b, and 5c all fail and no variable values are changed becuase the ticker is no longer *AY*. Once row 3,1013 is reached, we output the variable values as shown in Step 6. Then, we go back to Step 4 and repeat the entire process for i=1.    
 
-Here are the results:
+## Results and Analysis
 
 ![2017](resources/2017_data.png)
 
 ![2018](resources/2018_data.png)
 
 While in 2017 DAQO had the best returns (+199.4%), in 2018 it had the worst returns (-62.6%). Let's consider the returns number in context. In 2017, DAQO was only traded 35,796,200 times; it was the least traded stock of the set of 11 by a lot. Perhaps this means that the stock was not accurately priced. In 2018, it was traded more often, a total of 107,873,900 times. While compared to 2017 it was traded more, it was still far below the 2018 median of **totalVolume** which was 179,594,450. This suggests that the price of DAQO still may be innacurate and returns may not reflect the true value of the stock. Regardless, this is not a good indicator of the strength of DAQO relative to these other renewable energy stocks.
-
 It is great that we got those results, but that took a long time. It wasn't super efficient to make VBA go through all 3,013 rows 11 times. Here is how long it took VBA to run the macro:
 
 ![slow 2017 time](resources/2017_moduletime.PNG)
