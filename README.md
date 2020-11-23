@@ -1,5 +1,5 @@
 # stock-analysis
-Using VBA to analyze financial trends
+Using VBA to analyze financial trends and a discussion on refractoring code
 
 ## Overview of Project 
 Steve is looking at the performance of DAQO New Energy Group, a company that invests in solar panels. Steve is looking at in the DAQO (DQ) data from 2017 and 2018, in context of a number of other renewable energy stocks. 
