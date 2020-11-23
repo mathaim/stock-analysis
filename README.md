@@ -2,15 +2,14 @@
 Using VBA to analyze financial trends
 
 ## Overview of Project 
-Steve is looking at the performance of DAQO New Energy Group, a company that invests in solar panels. Steve is looking at in the DAQO data from 2017 and 2018, in context of a number of other renewable energy stocks. 
+Steve is looking at the performance of DAQO New Energy Group, a company that invests in solar panels. Steve is looking at in the DAQO (DQ) data from 2017 and 2018, in context of a number of other renewable energy stocks. 
 
 ## About the Data
 The data has 8 columns: **Ticker,	Date,	Open,	High,	Low,	Close,	Adj Close,	and Volume.** Both 2017 and 2018 data have 3,013 rows. The variable **Ticker** is comprised of 11 different stock tickers. The **Date** starts at January 3rd for each year and goes through December 29. **High** and **Low** show the highest and lowest prices of the stock during the day. **Open** and **Close** show the initial and final price of the stock that trading day. **Adj Close** shows the adjusted closing price, which is a more complex analysis that uses the closing price as a starting point, but it takes into account factors such as dividends, stock splits and new stock offerings to determine a value. The adjusted closing price represents a more accurate reflection of a stock's value, since distributions and new offerings can alter the closing price. **Volume** the number of shares of a security traded between its daily open and close.
 
 
 ## Analysis of All Stocks
-Steve believes that if a stock is traded often, then the price will accurately reflect the value of the stock, so he wants to look at this. If we sum up all of the daily volume for DQ, we'll have the yearly volume and a rough idea of how often it gets traded. Steve also wants to see return, so we are doing blah blah,
-We also want to make sure we are doing all this as efficiently as we can, so we are going to time how long it takes VBA to perform this.
+Steve believes that if a stock is traded often, then the price will accurately reflect the value of the stock. If we sum up all of the daily volume for DQ, we'll have the yearly volume and a rough idea of how often it gets traded and therefore how much it is worth. Steve also wants to see the return of each stock annually, we must collect both closing price on the first and last day of every year. To calculate the annual return, we must calculate the closing price on the last day in the year by the closing price on the first day in the year minus 1. We also want to make sure we are doing all this as efficiently as we can, so we are going to time how long it takes VBA to perform this.
 
 To do this we created the following macro:
 
